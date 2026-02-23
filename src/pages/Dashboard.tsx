@@ -17,14 +17,17 @@ import {
   IonInput,
   IonItemDivider,
   IonButtons,
+  IonItemSliding,
+  IonItemOptions,
+  IonItemOption,
 } from '@ionic/react';
-import { add } from 'ionicons/icons';
+import { add, trash } from 'ionicons/icons';
 import { useBooklets } from '../contexts/BookletContext';
 import { useHistory } from 'react-router-dom';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
-  const { booklets, addBooklet } = useBooklets();
+  const { booklets, addBooklet, deleteBooklet } = useBooklets();
   const [showModal, setShowModal] = useState(false);
   const [newBookletName, setNewBookletName] = useState('');
   const history = useHistory();
@@ -54,15 +57,22 @@ const Dashboard: React.FC = () => {
         ) : (
           <IonList>
             {booklets.map((booklet) => (
-              <IonItem key={booklet.id} routerLink={`/booklet/${booklet.id}`} detail={true}>
-                <IonLabel>
-                  <h2>{booklet.name}</h2>
-                  <p>{new Date(booklet.createdAt).toLocaleDateString()}</p>
-                </IonLabel>
-                <IonBadge slot="end" color="secondary">
-                  {booklet.pages.length} Pages
-                </IonBadge>
-              </IonItem>
+              <IonItemSliding key={booklet.id}>
+                <IonItem routerLink={`/booklet/${booklet.id}`} detail={true}>
+                  <IonLabel>
+                    <h2>{booklet.name}</h2>
+                    <p>{new Date(booklet.createdAt).toLocaleDateString()}</p>
+                  </IonLabel>
+                  <IonBadge slot="end" color="secondary">
+                    {booklet.pages.length} Pages
+                  </IonBadge>
+                </IonItem>
+                <IonItemOptions side="end">
+                  <IonItemOption color="danger" onClick={() => deleteBooklet(booklet.id)}>
+                    <IonIcon slot="icon-only" icon={trash} />
+                  </IonItemOption>
+                </IonItemOptions>
+              </IonItemSliding>
             ))}
           </IonList>
         )}

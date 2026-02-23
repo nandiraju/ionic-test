@@ -20,7 +20,7 @@ import {
   IonModal,
   IonActionSheet,
 } from '@ionic/react';
-import { camera, trash } from 'ionicons/icons';
+import { camera, trash, images, add } from 'ionicons/icons';
 import { useParams, useHistory } from 'react-router-dom';
 import { useBooklets } from '../contexts/BookletContext';
 import './BookletDetail.css';
@@ -32,6 +32,7 @@ const BookletDetail: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [showAddAction, setShowAddAction] = useState(false);
 
   if (!booklet) {
     return (
@@ -46,14 +47,64 @@ const BookletDetail: React.FC = () => {
     );
   }
 
+  const compressImage = (base64Str: string): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64Str;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 1200; // Good balance for readability vs size
+        const MAX_HEIGHT = 1600;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        // Compress to JPEG with 0.7 quality
+        resolve(canvas.toDataURL('image/jpeg', 0.7));
+      };
+    });
+  };
+
   const handleCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setPreviewImage(e.target?.result as string);
+      reader.onload = async (e) => {
+        const result = e.target?.result as string;
+        const compressed = await compressImage(result);
+        setPreviewImage(compressed);
       };
       reader.readAsDataURL(file);
+    }
+    // Reset input so the same file (if needed) can be picked again
+    event.target.value = '';
+  };
+
+  const triggerCamera = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.setAttribute('capture', 'environment');
+      fileInputRef.current.click();
+    }
+  };
+
+  const triggerGallery = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.removeAttribute('capture');
+      fileInputRef.current.click();
     }
   };
 
@@ -92,24 +143,45 @@ const BookletDetail: React.FC = () => {
         {booklet.pages.length === 0 && (
           <div className="empty-state">
             <p>No pages captured yet.</p>
-            <p>Tap the camera icon to start.</p>
+            <p>Tap the + icon to start.</p>
           </div>
         )}
 
         <input
           type="file"
           accept="image/*"
-          capture="environment"
           style={{ display: 'none' }}
           ref={fileInputRef}
           onChange={handleCapture}
         />
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => fileInputRef.current?.click()}>
-            <IonIcon icon={camera} />
+          <IonFabButton onClick={() => setShowAddAction(true)}>
+            <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>
+
+        <IonActionSheet
+          isOpen={showAddAction}
+          onDidDismiss={() => setShowAddAction(false)}
+          header="Add Page"
+          buttons={[
+            {
+              text: 'Take Photo',
+              icon: camera,
+              handler: triggerCamera,
+            },
+            {
+              text: 'Upload from Gallery',
+              icon: images,
+              handler: triggerGallery,
+            },
+            {
+              text: 'Cancel',
+              role: 'cancel',
+            },
+          ]}
+        />
 
         <IonModal isOpen={!!previewImage} onDidDismiss={() => setPreviewImage(null)}>
           <IonHeader>

@@ -6,6 +6,7 @@ interface BookletContextType {
   addBooklet: (name: string) => string;
   addPageToBooklet: (bookletId: string, image: string) => void;
   deletePage: (bookletId: string, pageId: string) => void;
+  deleteBooklet: (id: string) => void;
   getBooklet: (id: string) => Booklet | undefined;
 }
 
@@ -18,7 +19,12 @@ export const BookletProvider: React.FC<{ children: React.ReactNode }> = ({ child
   });
 
   useEffect(() => {
-    localStorage.setItem('medical_booklets', JSON.stringify(booklets));
+    try {
+      localStorage.setItem('medical_booklets', JSON.stringify(booklets));
+    } catch (e) {
+      console.error('Failed to save to localStorage:', e);
+      // Optional: Alert the user if the storage is full
+    }
   }, [booklets]);
 
   const addBooklet = (name: string) => {
@@ -62,12 +68,16 @@ export const BookletProvider: React.FC<{ children: React.ReactNode }> = ({ child
     );
   };
 
+  const deleteBooklet = (id: string) => {
+    setBooklets((prev) => prev.filter((b) => b.id !== id));
+  };
+
   const getBooklet = (id: string) => {
     return booklets.find((b) => b.id === id);
   };
 
   return (
-    <BookletContext.Provider value={{ booklets, addBooklet, addPageToBooklet, deletePage, getBooklet }}>
+    <BookletContext.Provider value={{ booklets, addBooklet, addPageToBooklet, deletePage, deleteBooklet, getBooklet }}>
       {children}
     </BookletContext.Provider>
   );
