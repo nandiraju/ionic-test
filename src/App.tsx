@@ -40,7 +40,7 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
     <BookletProvider>
-      <IonReactRouter>
+      <IonReactRouter basename="/ionic-test">
         <IonRouterOutlet>
           <Route exact path="/dashboard">
             <Dashboard />
