@@ -44,3 +44,23 @@
   width: 100%;
   height: auto;
 }
+
+.preview-modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.preview-footer {
+  padding: 16px;
+  background: var(--ion-background-color, #fff);
+  border-top: 1px solid var(--ion-color-light-shade);
+}
+
+.preview-footer ion-button {
+  margin: 0;
+  height: 56px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+

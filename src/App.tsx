@@ -51,6 +51,9 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/dashboard" />
           </Route>
+          <Route>
+            <Redirect to="/dashboard" />
+          </Route>
         </IonRouterOutlet>
       </IonReactRouter>
     </BookletProvider>

@@ -74,12 +74,7 @@ const BookletDetail: React.FC = () => {
           <IonTitle>{booklet.name}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{booklet.name}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+      <IonContent className="ion-padding">
 
         <IonGrid>
           <IonRow>
@@ -122,23 +117,29 @@ const BookletDetail: React.FC = () => {
               <IonTitle>Preview Captured Page</IonTitle>
             </IonToolbar>
           </IonHeader>
-          <IonContent className="ion-padding">
-            <div className="preview-container">
-              {previewImage && <IonImg src={previewImage} />}
+          <div className="preview-modal-wrapper">
+            <IonContent className="ion-padding">
+              <div className="preview-container">
+                {previewImage && <IonImg src={previewImage} />}
+              </div>
+            </IonContent>
+            <div className="preview-footer">
+              <IonGrid>
+                <IonRow>
+                  <IonCol size="6">
+                    <IonButton expand="block" color="medium" onClick={() => setPreviewImage(null)}>
+                      Retake
+                    </IonButton>
+                  </IonCol>
+                  <IonCol size="6">
+                    <IonButton expand="block" color="success" onClick={acceptCapture}>
+                      Accept
+                    </IonButton>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
             </div>
-            <IonRow className="ion-margin-top">
-              <IonCol size="6">
-                <IonButton expand="block" color="medium" onClick={() => setPreviewImage(null)}>
-                  Retake
-                </IonButton>
-              </IonCol>
-              <IonCol size="6">
-                <IonButton expand="block" color="success" onClick={acceptCapture}>
-                  Accept
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonContent>
+          </div>
         </IonModal>
 
         <IonActionSheet

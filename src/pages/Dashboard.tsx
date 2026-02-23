@@ -45,12 +45,7 @@ const Dashboard: React.FC = () => {
           <IonTitle>Medical Booklets</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Medical Booklets</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+      <IonContent className="ion-padding">
 
         {booklets.length === 0 ? (
           <div className="empty-state">
