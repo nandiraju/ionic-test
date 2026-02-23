@@ -20,7 +20,7 @@ import {
   IonModal,
   IonActionSheet,
 } from '@ionic/react';
-import { camera, trash, images, add } from 'ionicons/icons';
+import { camera, trash, images, add, moon, sunny } from 'ionicons/icons';
 import { useParams, useHistory } from 'react-router-dom';
 import { useBooklets } from '../contexts/BookletContext';
 import './BookletDetail.css';
@@ -33,6 +33,12 @@ const BookletDetail: React.FC = () => {
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [showAddAction, setShowAddAction] = useState(false);
+  const [isDark, setIsDark] = useState(document.body.classList.contains('ion-palette-dark'));
+
+  const toggleDarkMode = () => {
+    const isDarkNow = document.body.classList.toggle('ion-palette-dark');
+    setIsDark(isDarkNow);
+  };
 
   if (!booklet) {
     return (
@@ -123,6 +129,11 @@ const BookletDetail: React.FC = () => {
             <IonBackButton defaultHref="/dashboard" />
           </IonButtons>
           <IonTitle>{booklet.name}</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={toggleDarkMode}>
+              <IonIcon slot="icon-only" icon={isDark ? sunny : moon} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

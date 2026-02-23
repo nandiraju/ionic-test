@@ -21,7 +21,7 @@ import {
   IonItemOptions,
   IonItemOption,
 } from '@ionic/react';
-import { add, trash } from 'ionicons/icons';
+import { add, moon, sunny, book, trash } from 'ionicons/icons';
 import { useBooklets } from '../contexts/BookletContext';
 import { useHistory } from 'react-router-dom';
 import './Dashboard.css';
@@ -30,7 +30,13 @@ const Dashboard: React.FC = () => {
   const { booklets, addBooklet, deleteBooklet } = useBooklets();
   const [showModal, setShowModal] = useState(false);
   const [newBookletName, setNewBookletName] = useState('');
+  const [isDark, setIsDark] = useState(document.body.classList.contains('ion-palette-dark'));
   const history = useHistory();
+
+  const toggleDarkMode = () => {
+    const isDarkNow = document.body.classList.toggle('ion-palette-dark');
+    setIsDark(isDarkNow);
+  };
 
   const handleCreate = () => {
     if (newBookletName.trim()) {
@@ -46,6 +52,11 @@ const Dashboard: React.FC = () => {
       <IonHeader>
         <IonToolbar color="primary">
           <IonTitle>Medical Booklets</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={toggleDarkMode}>
+              <IonIcon slot="icon-only" icon={isDark ? sunny : moon} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
@@ -93,7 +104,8 @@ const Dashboard: React.FC = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
-            <IonItem>
+            <IonItem className="ion-margin-bottom custom-input-item">
+              <IonIcon slot="start" icon={book} color="primary" />
               <IonLabel position="stacked">Booklet Name</IonLabel>
               <IonInput
                 placeholder="e.g. Health Records 2024"

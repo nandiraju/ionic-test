@@ -13,3 +13,36 @@
   font-size: 1.2rem;
   margin-top: 10px;
 }
+
+/* Custom Bordered Input Styling */
+.custom-input-item {
+  --border-radius: 8px;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: var(--ion-color-light-shade);
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --highlight-height: 0;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.custom-input-item.item-has-focus {
+  --border-color: var(--ion-color-primary);
+}
+
+.custom-input-item ion-icon {
+  font-size: 1.4rem;
+  margin-right: 8px;
+}
+
+.custom-input-item ion-label {
+  font-weight: 500;
+  color: var(--ion-color-medium);
+  margin-bottom: 4px;
+}
+
+.custom-input-item ion-input {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}
