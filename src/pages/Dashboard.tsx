@@ -1,0 +1,113 @@
+import React, { useState } from 'react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonBadge,
+  IonFab,
+  IonFabButton,
+  IonIcon,
+  IonModal,
+  IonButton,
+  IonInput,
+  IonItemDivider,
+  IonButtons,
+} from '@ionic/react';
+import { add } from 'ionicons/icons';
+import { useBooklets } from '../contexts/BookletContext';
+import { useHistory } from 'react-router-dom';
+import './Dashboard.css';
+
+const Dashboard: React.FC = () => {
+  const { booklets, addBooklet } = useBooklets();
+  const [showModal, setShowModal] = useState(false);
+  const [newBookletName, setNewBookletName] = useState('');
+  const history = useHistory();
+
+  const handleCreate = () => {
+    if (newBookletName.trim()) {
+      const id = addBooklet(newBookletName);
+      setNewBookletName('');
+      setShowModal(false);
+      history.push(`/booklet/${id}`);
+    }
+  };
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonTitle>Medical Booklets</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Medical Booklets</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        {booklets.length === 0 ? (
+          <div className="empty-state">
+            <p>No booklets yet. Tap + to create one.</p>
+          </div>
+        ) : (
+          <IonList>
+            {booklets.map((booklet) => (
+              <IonItem key={booklet.id} routerLink={`/booklet/${booklet.id}`} detail={true}>
+                <IonLabel>
+                  <h2>{booklet.name}</h2>
+                  <p>{new Date(booklet.createdAt).toLocaleDateString()}</p>
+                </IonLabel>
+                <IonBadge slot="end" color="secondary">
+                  {booklet.pages.length} Pages
+                </IonBadge>
+              </IonItem>
+            ))}
+          </IonList>
+        )}
+
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton onClick={() => setShowModal(true)}>
+            <IonIcon icon={add} />
+          </IonFabButton>
+        </IonFab>
+
+        <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)} initialBreakpoint={0.5} breakpoints={[0, 0.5, 0.75]}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Create New Booklet</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setShowModal(false)}>Close</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonItem>
+              <IonLabel position="stacked">Booklet Name</IonLabel>
+              <IonInput
+                placeholder="e.g. Health Records 2024"
+                value={newBookletName}
+                onIonInput={(e) => setNewBookletName(e.detail.value!)}
+                maxlength={40}
+                counter={true}
+              />
+            </IonItem>
+            <div className="ion-margin-top">
+              <IonButton expand="block" onClick={handleCreate} disabled={!newBookletName.trim()}>
+                Create Booklet
+              </IonButton>
+            </div>
+          </IonContent>
+        </IonModal>
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default Dashboard;

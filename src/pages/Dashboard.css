@@ -1,0 +1,15 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  color: var(--ion-color-medium);
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-state p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
