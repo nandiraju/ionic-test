@@ -30,7 +30,7 @@ const Home: React.FC = () => {
         <IonToolbar>
           <div className="home-top-header">
             <div className="branding">
-              <IonText className="brand-name">Patient Booklet</IonText>
+              <IonText className="brand-name">&nbsp;&nbsp;Patient Booklet</IonText>
             </div>
             <IonButtons>
               <IonButton onClick={toggleDarkMode} className="theme-toggle-home">
