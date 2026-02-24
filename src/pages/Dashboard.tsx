@@ -76,25 +76,6 @@ const Dashboard: React.FC = () => {
           <h1>What's up, {profile.firstName || 'User'}!</h1>
         </div>
 
-        {/* Categories Section (Horizontal Cards) */}
-        <div className="section-label">CATEGORIES</div>
-        <div className="categories-scroll">
-          <div className="category-card primary">
-            <div className="task-count">{booklets.length} booklets</div>
-            <div className="category-name">Medical</div>
-            <div className="category-progress">
-              <div className="progress-bar" style={{ width: "60%" }}></div>
-            </div>
-          </div>
-          <div className="category-card secondary">
-            <div className="task-count">0 tasks</div>
-            <div className="category-name">Prescriptions</div>
-            <div className="category-progress">
-              <div className="progress-bar" style={{ width: "30%" }}></div>
-            </div>
-          </div>
-        </div>
-
         {/* Booklets List Toggle Section */}
         <div className="section-label">YOUR BOOKLETS</div>
 
