@@ -65,12 +65,24 @@
 
   /** Custom variables (light mode) **/
   --app-input-border: 1px solid #e2e8f0;
+
+  /** Header / Toolbar theming (light mode) **/
+  --ion-toolbar-background: var(--ion-background-color);
+  --ion-toolbar-color: var(--ion-text-color);
+  --ion-toolbar-border-color: var(--ion-color-step-100);
 }
 
 body {
   --ion-font-family:
     "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto",
     sans-serif;
+}
+
+/** Global Header & Toolbar sizing **/
+ion-toolbar {
+  --min-height: 64px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
 }
 
 /** 
@@ -136,6 +148,11 @@ body {
 
   /** Custom variables **/
   --app-input-border: 1px solid var(--ion-color-step-200);
+
+  /** Header / Toolbar theming (dark mode) **/
+  --ion-toolbar-background: var(--ion-background-color);
+  --ion-toolbar-color: var(--ion-text-color);
+  --ion-toolbar-border-color: var(--ion-color-step-100);
 }
 
 /** 

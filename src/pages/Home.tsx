@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   return (
     <IonPage className="cosmos-theme">
       <IonHeader className="ion-no-border">
-        <IonToolbar style={{ '--background': 'transparent' }}>
+        <IonToolbar>
           <div className="home-top-header">
             <div className="branding">
               <div className="brand-logo">

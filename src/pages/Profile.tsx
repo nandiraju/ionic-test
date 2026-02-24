@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   return (
     <IonPage className="cosmos-theme">
       <IonHeader className="ion-no-border">
-        <IonToolbar style={{ '--background': 'transparent' }}>
+        <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={() => history.goBack()} className="back-btn">
               <IonIcon slot="icon-only" icon={chevronBack} />

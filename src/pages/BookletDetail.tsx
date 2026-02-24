@@ -137,7 +137,7 @@ const BookletDetail: React.FC = () => {
   return (
     <IonPage className="cosmos-theme">
       <IonHeader className="ion-no-border">
-        <IonToolbar style={{ '--background': 'transparent' }}>
+        <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={() => history.push('/dashboard')} className="back-btn">
               <IonIcon slot="icon-only" icon={chevronBack} />
@@ -263,7 +263,7 @@ const BookletDetail: React.FC = () => {
         >
           <div className="preview-container">
             <IonHeader className="ion-no-border">
-              <IonToolbar style={{ '--background': 'transparent' }}>
+              <IonToolbar>
                 <IonButtons slot="end">
                   <IonButton onClick={() => setSelectedPageId(null)} color="light">
                     Close
