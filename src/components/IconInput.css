@@ -20,7 +20,7 @@
   color: var(--app-subtext-color);
   align-self: center;
   margin-top: 0;
-  transform: translateY(3px); /* Optical compensation: icon bounding box > text x-height */
+  transform: translateY(6px); /* Optical compensation: icon bounding box > text x-height */
 }
 
 .icon-input-item ion-input,
