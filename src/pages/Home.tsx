@@ -30,9 +30,6 @@ const Home: React.FC = () => {
         <IonToolbar>
           <div className="home-top-header">
             <div className="branding">
-              <div className="brand-logo">
-                <div className="logo-inner"></div>
-              </div>
               <IonText className="brand-name">Patient Booklet</IonText>
             </div>
             <IonButtons>
