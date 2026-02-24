@@ -1,48 +1,236 @@
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80%;
-  color: var(--ion-color-medium);
-  text-align: center;
-  padding: 20px;
+/* Cosmos Premium Palette & Layout */
+.app-container {
+  --background: var(--ion-background-color);
 }
 
-.empty-state p {
+.back-btn {
+  --color: var(--ion-text-color);
+  --background: var(--ion-color-step-50);
+  --border-radius: 12px;
+  width: 45px;
+  height: 45px;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
+.theme-toggle-btn {
+  --color: var(--ion-color-medium);
+  margin-right: 10px;
+}
+
+.profile-btn {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.profile-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--ion-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.greeting-section {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.greeting-section h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--ion-text-color);
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--app-subtext-color);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  margin-top: 25px;
+}
+
+/* Category Cards */
+.categories-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding-bottom: 15px;
+  scrollbar-width: none;
+}
+
+.categories-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.category-card {
+  min-width: 160px;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--ion-card-background);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ion-color-step-100);
+}
+
+.category-card.primary {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.category-card.secondary {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.task-count {
+  font-size: 0.8rem;
+  color: var(--app-subtext-color);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.category-name {
   font-size: 1.2rem;
-  margin-top: 10px;
+  font-weight: 700;
+  color: var(--ion-text-color);
+  margin-bottom: 20px;
+}
+
+.category-progress {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  width: 100%;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ion-color-primary);
+}
+
+.category-card.secondary .progress-bar {
+  background: var(--ion-color-tertiary);
+  box-shadow: 0 0 10px var(--ion-color-tertiary);
+}
+
+/* Booklet List Styling */
+.booklet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.booklet-list-item {
+  --background: var(--ion-card-background);
+  --border-radius: 20px;
+  --padding-start: 15px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  margin-bottom: 12px;
+  border: 1px solid var(--ion-color-step-100);
+}
+
+.item-status-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(240, 38, 184, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.item-status-icon ion-icon {
+  font-size: 1.5rem;
+  color: var(--ion-color-primary);
+}
+
+.booklet-list-item h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.booklet-list-item p {
+  font-size: 0.85rem;
+  color: var(--app-subtext-color);
+  font-weight: 500;
+}
+
+/* Vibrant FAB Design */
+.vibrant-fab ion-fab-button {
+  --background: var(--ion-color-primary);
+  --background-activated: var(--ion-color-primary-shade);
+  --box-shadow: 0 6px 16px rgba(240, 38, 184, 0.3);
+}
+
+.vibrant-fab ion-icon {
+  font-size: 2rem;
+}
+
+/* Modal Styling */
+.cosmos-modal {
+  --border-radius: 30px 30px 0 0;
+  --background: var(--ion-background-color);
+}
+
+.vibrant-btn {
+  --background: var(--ion-color-primary);
+  --border-radius: 12px;
+  font-weight: 700;
+}
+
+.ion-palette-dark .vibrant-btn {
+  --box-shadow: 0 4px 12px rgba(240, 38, 184, 0.3);
 }
 
 /* Custom Bordered Input Styling */
 .custom-input-item {
-  --border-radius: 8px;
-  --border-width: 1.5px;
-  --border-style: solid;
-  --border-color: var(--ion-color-light-shade);
+  --background: var(--ion-color-step-50);
+  --border-radius: 12px;
   --padding-start: 12px;
   --padding-end: 12px;
-  --highlight-height: 0;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.custom-input-item.item-has-focus {
-  --border-color: var(--ion-color-primary);
+  border: var(--app-input-border);
 }
 
 .custom-input-item ion-icon {
   font-size: 1.4rem;
   margin-right: 8px;
+  align-self: center;
+  margin-top: 0;
+  transform: translateY(3px);
 }
 
 .custom-input-item ion-label {
-  font-weight: 500;
-  color: var(--ion-color-medium);
+  font-weight: 700;
+  color: var(--app-subtext-color);
   margin-bottom: 4px;
 }
 
 .custom-input-item ion-input {
   --padding-top: 8px;
   --padding-bottom: 8px;
+  color: var(--ion-text-color);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--app-subtext-color);
+  text-align: center;
 }

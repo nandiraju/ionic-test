@@ -19,10 +19,21 @@ import {
   IonButton,
   IonModal,
   IonActionSheet,
+  useIonAlert,
 } from '@ionic/react';
-import { camera, trash, images, add, moon, sunny } from 'ionicons/icons';
+import { 
+  camera, 
+  trash, 
+  images, 
+  add, 
+  moon, 
+  sunny, 
+  chevronBack, 
+  eye 
+} from 'ionicons/icons';
 import { useParams, useHistory } from 'react-router-dom';
 import { useBooklets } from '../contexts/BookletContext';
+import { Camera } from 'lucide-react';
 import './BookletDetail.css';
 
 const BookletDetail: React.FC = () => {
@@ -30,10 +41,12 @@ const BookletDetail: React.FC = () => {
   const { getBooklet, addPageToBooklet, deletePage } = useBooklets();
   const booklet = getBooklet(id);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [presentAlert] = useIonAlert();
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [showAddAction, setShowAddAction] = useState(false);
   const [isDark, setIsDark] = useState(document.body.classList.contains('ion-palette-dark'));
+  const history = useHistory();
 
   const toggleDarkMode = () => {
     const isDarkNow = document.body.classList.toggle('ion-palette-dark');
@@ -122,41 +135,94 @@ const BookletDetail: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar color="primary">
+    <IonPage className="cosmos-theme">
+      <IonHeader className="ion-no-border">
+        <IonToolbar style={{ '--background': 'transparent' }}>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/dashboard" />
+            <IonButton onClick={() => history.push('/dashboard')} className="back-btn">
+              <IonIcon slot="icon-only" icon={chevronBack} />
+            </IonButton>
           </IonButtons>
-          <IonTitle>{booklet.name}</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={toggleDarkMode}>
+            <IonButton onClick={toggleDarkMode} className="theme-toggle-btn">
               <IonIcon slot="icon-only" icon={isDark ? sunny : moon} />
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
 
-        <IonGrid>
+      <IonContent className="ion-padding app-container" scrollY={true}>
+
+        {/* Booklet Title Section */}
+        <div className="booklet-info-section">
+          <h1>{booklet.name}</h1>
+          <p>{booklet.pages.length} Pages • Medicine Registry</p>
+        </div>
+
+        {/* Captured Pages Grid */}
+        <div className="section-label">CAPTURED PAGES</div>
+        
+        <IonGrid className="ion-no-padding">
           <IonRow>
-            {booklet.pages.map((page) => (
-              <IonCol size="6" sizeMd="4" sizeLg="3" key={page.id}>
-                <IonCard className="page-card" onClick={() => setSelectedPageId(page.id)}>
-                  <IonImg src={page.image} />
-                  <div className="page-number">{page.order + 1}</div>
-                </IonCard>
+            {booklet.pages.length === 0 ? (
+              <IonCol size="12">
+                <div className="cosmos-empty-state">
+                  <div className="icon-container">
+                    <Camera size={48} />
+                  </div>
+                  <h2>No Pages Captured</h2>
+                  <p>Start building your booklet by taking photos of medical documents or uploading from your gallery.</p>
+                </div>
               </IonCol>
-            ))}
+            ) : (
+              booklet.pages.map((page) => (
+                <IonCol size="6" size-md="4" size-lg="3" size-xl="2" key={page.id} className="ion-padding-tiny">
+                  <div className="cosmos-card page-card">
+                    <div className="page-img-container" onClick={() => setSelectedPageId(page.id)}>
+                      <IonImg src={page.image} />
+                      <div className="page-overlay">
+                        <IonIcon icon={eye} />
+                      </div>
+                    </div>
+                    <div className="page-card-actions">
+                      <IonButton 
+                        fill="clear" 
+                        color="danger" 
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          presentAlert({
+                            header: 'Delete Image?',
+                            message: 'Are you sure you want to remove this captured page? This cannot be undone.',
+                            buttons: [
+                              { text: 'Cancel', role: 'cancel' },
+                              {
+                                text: 'Delete',
+                                role: 'destructive',
+                                handler: () => {
+                                  deletePage(id, page.id);
+                                }
+                              }
+                            ]
+                          });
+                        }}
+                      >
+                        <IonIcon slot="icon-only" icon={trash} />
+                      </IonButton>
+                      <span className="page-label">Page {booklet.pages.indexOf(page) + 1}</span>
+                    </div>
+                  </div>
+                </IonCol>
+              ))
+            )}
           </IonRow>
         </IonGrid>
 
-        {booklet.pages.length === 0 && (
-          <div className="empty-state">
-            <p>No pages captured yet.</p>
-            <p>Tap the + icon to start.</p>
-          </div>
-        )}
+        <IonFab vertical="bottom" horizontal="end" slot="fixed" className="vibrant-fab">
+          <IonFabButton onClick={() => setShowAddAction(true)}>
+            <IonIcon icon={add} />
+          </IonFabButton>
+        </IonFab>
 
         <input
           type="file"
@@ -166,16 +232,11 @@ const BookletDetail: React.FC = () => {
           onChange={handleCapture}
         />
 
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => setShowAddAction(true)}>
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
-
         <IonActionSheet
           isOpen={showAddAction}
           onDidDismiss={() => setShowAddAction(false)}
           header="Add Page"
+          className="cosmos-action-sheet"
           buttons={[
             {
               text: 'Take Photo',
@@ -194,61 +255,64 @@ const BookletDetail: React.FC = () => {
           ]}
         />
 
-        <IonModal isOpen={!!previewImage} onDidDismiss={() => setPreviewImage(null)}>
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Preview Captured Page</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <div className="preview-modal-wrapper">
-            <IonContent className="ion-padding">
-              <div className="preview-container">
-                {previewImage && <IonImg src={previewImage} />}
+        {/* Full Image Preview Modal */}
+        <IonModal 
+          isOpen={selectedPageId !== null} 
+          onDidDismiss={() => setSelectedPageId(null)}
+          className="preview-modal"
+        >
+          <div className="preview-container">
+            <IonHeader className="ion-no-border">
+              <IonToolbar style={{ '--background': 'transparent' }}>
+                <IonButtons slot="end">
+                  <IonButton onClick={() => setSelectedPageId(null)} color="light">
+                    Close
+                  </IonButton>
+                </IonButtons>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent className="ion-padding" style={{ '--background': 'black' }}>
+              <div className="full-preview-img">
+                <IonImg src={booklet.pages.find(p => p.id === selectedPageId)?.image} />
               </div>
             </IonContent>
-            <div className="preview-footer">
-              <IonGrid>
-                <IonRow>
-                  <IonCol size="6">
-                    <IonButton expand="block" color="medium" onClick={() => setPreviewImage(null)}>
-                      Retake
-                    </IonButton>
-                  </IonCol>
-                  <IonCol size="6">
-                    <IonButton expand="block" color="success" onClick={acceptCapture}>
-                      Accept
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </div>
           </div>
         </IonModal>
 
-        <IonActionSheet
-          isOpen={!!selectedPageId}
-          onDidDismiss={() => setSelectedPageId(null)}
-          header="Page Options"
-          buttons={[
-            {
-              text: 'Delete Page',
-              role: 'destructive',
-              icon: trash,
-              handler: () => {
-                if (selectedPageId) {
-                  deletePage(id, selectedPageId);
-                }
-              },
-            },
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                setSelectedPageId(null);
-              },
-            },
-          ]}
-        />
+        {/* Capture Preview Modal */}
+        <IonModal 
+          isOpen={previewImage !== null} 
+          onDidDismiss={() => setPreviewImage(null)}
+          className="preview-modal cosmos-modal"
+        >
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Confirm Page</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setPreviewImage(null)}>Cancel</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <div className="preview-img-wrapper">
+              <IonImg src={previewImage || ''} />
+            </div>
+          </IonContent>
+          <div className="preview-footer-cosmos ion-padding">
+            <IonRow>
+              <IonCol size="6">
+                <IonButton expand="block" fill="outline" onClick={() => {
+                  setPreviewImage(null);
+                  triggerCamera();
+                }}>Retake</IonButton>
+              </IonCol>
+              <IonCol size="6">
+                <IonButton expand="block" className="vibrant-btn" onClick={acceptCapture}>Accept</IonButton>
+              </IonCol>
+            </IonRow>
+          </div>
+        </IonModal>
+
       </IonContent>
     </IonPage>
   );

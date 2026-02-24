@@ -1,0 +1,199 @@
+.welcome-container {
+  --background: var(--ion-background-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 24px;
+  position: relative;
+  z-index: 10;
+  justify-content: space-between;
+}
+
+.home-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-toggle-home {
+  --color: var(--ion-color-step-300);
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  background: var(--ion-color-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.2);
+}
+
+.ion-palette-dark .brand-logo {
+  box-shadow: 0 4px 12px rgba(240, 38, 184, 0.2);
+}
+
+.logo-inner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ion-text-color);
+  letter-spacing: -0.2px;
+}
+
+.hero-text {
+  margin-top: 40px;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  color: var(--ion-text-color);
+  letter-spacing: -2px;
+}
+
+.hero-text h1 span {
+  color: var(--ion-color-primary);
+}
+
+.ion-palette-dark .hero-text h1 span {
+  text-shadow: 0 0 20px rgba(240, 38, 184, 0.2);
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  color: var(--app-subtext-color);
+  line-height: 1.6;
+  margin-top: 20px;
+  max-width: 90%;
+  font-weight: 500;
+}
+
+.action-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.action-card {
+  background: var(--ion-color-step-50);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--ion-color-step-100);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.action-card:active {
+  transform: scale(0.97);
+  background: var(--ion-color-step-100);
+}
+
+.icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.icon-wrapper.primary {
+  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+}
+
+.ion-palette-dark .icon-wrapper.primary {
+  box-shadow: 0 8px 16px rgba(240, 38, 184, 0.2);
+}
+
+.icon-wrapper.secondary {
+  background: linear-gradient(135deg, var(--ion-color-secondary) 0%, var(--ion-color-secondary-shade) 100%);
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ion-text-color);
+}
+
+.card-info p {
+  font-size: 0.9rem;
+  color: var(--app-subtext-color);
+  margin: 4px 0 0 0;
+  font-weight: 500;
+}
+
+.chevron {
+  color: var(--ion-color-step-200);
+}
+
+.footer-button {
+  margin-top: 40px;
+}
+
+.get-started-btn {
+  --background: var(--ion-color-primary);
+  --border-radius: 16px;
+  font-weight: 700;
+  height: 64px;
+  font-size: 1.1rem;
+}
+
+.ion-palette-dark .get-started-btn {
+  --box-shadow: 0 8px 20px rgba(240, 38, 184, 0.3);
+}
+
+/* Decoration blobs */
+.blob {
+  position: absolute;
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0.2;
+}
+
+.blob-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--ion-color-primary);
+  top: -100px;
+  right: -100px;
+}
+
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--ion-color-secondary);
+  bottom: -150px;
+  left: -150px;
+}

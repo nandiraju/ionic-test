@@ -1,0 +1,42 @@
+.icon-input-item {
+  --background: var(--ion-color-step-50);
+  --border-radius: 16px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 60px;
+  margin-bottom: 16px;
+  border: var(--app-input-border);
+  transition: all 0.2s ease;
+}
+
+.icon-input-item.item-has-focus {
+  border-color: var(--ion-color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+.input-icon-outline {
+  font-size: 1.4rem;
+  margin-right: 12px;
+  color: var(--app-subtext-color);
+  align-self: center;
+  margin-top: 0;
+  transform: translateY(3px); /* Optical compensation: icon bounding box > text x-height */
+}
+
+.icon-input-item ion-input,
+.icon-input-item ion-textarea {
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  color: var(--ion-text-color);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.icon-input-item ion-textarea {
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+.ion-palette-dark .icon-input-item {
+  --background: rgba(255, 255, 255, 0.03);
+}

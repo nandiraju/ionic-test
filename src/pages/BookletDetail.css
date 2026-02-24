@@ -1,66 +1,188 @@
-.page-card {
-  position: relative;
-  margin: 8px;
+/* Cosmos Premium Palette & Layout */
+.app-container {
+  --background: var(--ion-background-color);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.back-btn {
+  --color: var(--ion-text-color);
+  --background: var(--ion-color-step-50);
+  --border-radius: 12px;
+  width: 45px;
+  height: 45px;
+}
+
+.profile-avatar.mini {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #f4f4f4;
-  aspect-ratio: 3/4;
+  border: 1.5px solid var(--ion-color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.page-card ion-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.booklet-info-section {
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
-.page-number {
+.booklet-info-section h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--ion-text-color);
+}
+
+.booklet-info-section p {
+  font-size: 0.9rem;
+  color: var(--app-subtext-color);
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Cosmos Cards & Grid */
+.cosmos-card {
+  background: var(--ion-card-background);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--ion-color-step-100);
+}
+
+.page-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-img-container {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-img-container ion-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.page-overlay {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 2px 8px;
-  border-radius: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.page-img-container:active .page-overlay {
+  opacity: 1;
+}
+
+.page-overlay ion-icon {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.page-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+
+.page-label {
   font-size: 0.8rem;
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--app-subtext-color);
+}
+
+/* Modal Enhancements */
+.preview-modal {
+  --border-radius: 30px 30px 0 0;
+  --background: #000;
 }
 
 .preview-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-preview-img {
   width: 100%;
-  max-height: 70vh;
-  overflow: hidden;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
-  border-radius: 12px;
 }
 
-.preview-container ion-img {
+.preview-img-wrapper {
   width: 100%;
-  height: auto;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
 }
 
-.preview-modal-wrapper {
+.preview-footer-cosmos {
+  background: #1e293b;
+  border-radius: 30px 30px 0 0;
+}
+
+/* Utils */
+.ion-padding-tiny {
+  padding: 5px;
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--app-subtext-color);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  margin-top: 25px;
+}
+
+.empty-state {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--app-subtext-color);
+  text-align: center;
 }
 
-.preview-footer {
-  padding: 16px;
-  background: var(--ion-background-color, #fff);
-  border-top: 1px solid var(--ion-color-light-shade);
+.vibrant-fab ion-fab-button {
+  --background: var(--ion-color-primary);
+  --box-shadow: 0 6px 16px rgba(240, 38, 184, 0.3);
 }
 
-.preview-footer ion-button {
-  margin: 0;
-  height: 56px;
-  font-size: 1.1rem;
-  font-weight: 600;
+.cosmos-action-sheet .action-sheet-group {
+  background: #1e293b;
+  color: #fff;
 }
 
+.cosmos-action-sheet .action-sheet-button {
+  color: #fff;
+}
