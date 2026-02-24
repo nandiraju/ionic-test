@@ -1,5 +1,5 @@
 .icon-input-item {
-  --background: var(--ion-color-step-50);
+  --background: transparent;
   --border-radius: 16px;
   --padding-start: 16px;
   --padding-end: 16px;
@@ -37,6 +37,4 @@
   --padding-bottom: 16px;
 }
 
-.ion-palette-dark .icon-input-item {
-  --background: rgba(255, 255, 255, 0.03);
-}
+
