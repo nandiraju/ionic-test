@@ -48,6 +48,9 @@
   --border-radius: 12px;
   --padding-start: 12px;
   --padding-end: 12px;
+  --inner-border-width: 0;
+  --border-width: 0;
+  --highlight-height: 0;
   margin-bottom: 20px;
   border: var(--app-input-border);
 }
