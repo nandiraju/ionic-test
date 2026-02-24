@@ -151,6 +151,34 @@ body {
   --background: var(--ion-background-color);
 }
 
+/**
+ * Desktop PWA Shell — Center the app on large screens
+ * Phone / iPad: full-width (no constraint)
+ * Desktop (≥1024px): centered 500px column with ambient shadow
+ * -----------------------------------------------------
+ */
+@media (min-width: 1024px) {
+  ion-app {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.06),
+      0 20px 60px rgba(0, 0, 0, 0.12),
+      0 0 80px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Subtle vignette behind the app shell */
+  body {
+    background: #e8edf2 !important;
+  }
+
+  body.ion-palette-dark {
+    background: #060c18 !important;
+  }
+}
+
+
 /** 
  * Cosmos Empty State Components
  * -----------------------------------------------------
